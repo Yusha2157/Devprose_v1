@@ -7,7 +7,6 @@ import { testAPIEndpoint } from '../services/api';
 
 /**
  * APITester page — send HTTP requests to any endpoint.
- * Placeholder: sends request details to backend, displays mock response.
  */
 
 const HTTP_METHODS = [
@@ -37,9 +36,29 @@ export default function APITester() {
     setLoading(true);
 
     try {
-      const data = await testAPIEndpoint({ url, method, body });
+      // ✅ Parse JSON body safely
+      let parsedBody = {};
+      if (body.trim()) {
+        try {
+          parsedBody = JSON.parse(body);
+        } catch {
+          setError('Invalid JSON in request body.');
+          setLoading(false);
+          return;
+        }
+      }
+
+      const data = await testAPIEndpoint({
+        url,
+        method,
+        headers: {},
+        body: parsedBody,
+      });
+
       if (data.success) {
-        setResult(data.message);
+        // ✅ Show full structured response
+        const formatted = JSON.stringify(data.result, null, 2);
+        setResult(formatted);
       } else {
         setError(data.error || 'Something went wrong.');
       }
