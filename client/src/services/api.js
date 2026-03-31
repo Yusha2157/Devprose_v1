@@ -75,8 +75,13 @@ export async function formatJSONApi({ json }) {
  * @param {string} params.method — HTTP method
  * @param {string} params.body — request body
  */
-export async function testAPIEndpoint({ url, method, body }) {
-  const response = await api.post('/api-tester', { url, method, body });
+export async function testAPIEndpoint({ url, method, headers = {}, body }) {
+  const response = await api.post('/api-tester', {
+    url,
+    method,
+    headers,
+    body,
+  });
   return response.data;
 }
 
