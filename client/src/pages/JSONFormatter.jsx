@@ -6,7 +6,6 @@ import { formatJSONApi } from '../services/api';
 
 /**
  * JSONFormatter page — paste JSON to format, validate, and minify.
- * Placeholder: sends JSON string to backend, displays mock response.
  */
 export default function JSONFormatter() {
   const [json, setJson] = useState('');
@@ -44,8 +43,8 @@ export default function JSONFormatter() {
 
   return (
     <div className="space-y-8">
-      <div className="pt-4">
-        <h1 className="text-2xl lg:text-3xl font-extrabold mb-3" style={{ color: 'var(--color-text)' }}>
+      <div className="pt-2">
+        <h1 className="text-2xl lg:text-3xl font-extrabold mb-3" style={{ color: '#ffffff' }}>
           JSON Formatter
         </h1>
         <p className="text-sm lg:text-base max-w-lg leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
@@ -102,9 +101,9 @@ export default function JSONFormatter() {
               <div
                 className="flex-1 p-5 rounded-xl overflow-auto text-sm leading-relaxed whitespace-pre-wrap font-mono animate-fade-in"
                 style={{
-                  backgroundColor: 'var(--color-code-bg)',
+                  backgroundColor: 'rgba(0, 0, 0, 0.3)',
                   color: 'var(--color-code-text)',
-                  border: '1px solid var(--color-border)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
                 }}
                 id="output-panel"
               >

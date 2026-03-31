@@ -1,10 +1,6 @@
 /**
- * Button — reusable button component with variants and loading state.
- *
- * @param {string} variant — 'primary' | 'secondary' | 'ghost'
- * @param {boolean} loading — shows spinner when true
- * @param {boolean} disabled
- * @param {string} className — additional classes
+ * Button — reusable button with variants and loading state.
+ * Primary variant updated to match reference blue buttons.
  */
 export default function Button({
   children,
@@ -24,19 +20,22 @@ export default function Button({
 
   const variants = {
     primary: {
-      background: 'linear-gradient(135deg, var(--color-primary), var(--color-primary-hover))',
+      background: 'linear-gradient(135deg, #3b82f6, #2563eb)',
       color: '#fff',
-      boxShadow: '0 4px 14px rgba(99, 102, 241, 0.35)',
+      border: 'none',
+      boxShadow: '0 4px 14px rgba(59, 130, 246, 0.3)',
     },
     secondary: {
-      backgroundColor: 'var(--color-surface)',
+      backgroundColor: 'rgba(255, 255, 255, 0.06)',
       color: 'var(--color-text)',
-      border: '1px solid var(--color-border)',
-      boxShadow: 'var(--shadow-sm)',
+      border: '1px solid rgba(255, 255, 255, 0.1)',
+      boxShadow: 'none',
     },
     ghost: {
       backgroundColor: 'transparent',
       color: 'var(--color-text-secondary)',
+      border: 'none',
+      boxShadow: 'none',
     },
   };
 

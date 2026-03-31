@@ -1,10 +1,5 @@
 /**
- * Select — reusable dropdown select component.
- *
- * @param {string} label — label text
- * @param {Array} options — [{ value, label }]
- * @param {string} value — controlled value
- * @param {function} onChange
+ * Select — reusable dropdown with dark glassmorphic styling.
  */
 export default function Select({ label, options = [], value, onChange, id, ...props }) {
   return (
@@ -24,14 +19,14 @@ export default function Select({ label, options = [], value, onChange, id, ...pr
         onChange={onChange}
         className="px-3 py-2.5 rounded-xl text-sm font-medium outline-none transition-all duration-200 cursor-pointer appearance-none"
         style={{
-          backgroundColor: 'var(--color-surface-alt)',
+          backgroundColor: 'rgba(255, 255, 255, 0.06)',
           color: 'var(--color-text)',
-          border: '1px solid var(--color-border)',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
         }}
         {...props}
       >
         {options.map((opt) => (
-          <option key={opt.value} value={opt.value}>
+          <option key={opt.value} value={opt.value} style={{ backgroundColor: '#1e293b' }}>
             {opt.label}
           </option>
         ))}

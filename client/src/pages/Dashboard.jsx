@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import Card from '../components/ui/Card';
 
 /**
- * Dashboard page — landing page showing overview of available tools.
- * Acts as the entry point and tool discovery surface.
+ * Dashboard page — landing page with glassmorphic tool cards matching the reference design.
+ * Features: hero header, tool cards with gradient icons and "Launch Tool" buttons,
+ * "Add New Tool" placeholder, and stats bar at the bottom.
  */
 
 const availableTools = [
@@ -20,45 +20,8 @@ const availableTools = [
     gradient: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
   },
   {
-    name: 'HTTP Header Inspector',
-    description: 'Inspect HTTP response headers for any URL. Analyze security headers, caching, and more.',
-    path: '/header-inspector',
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2L2 7l10 5 10-5-10-5z" />
-        <path d="M2 17l10 5 10-5" />
-        <path d="M2 12l10 5 10-5" />
-      </svg>
-    ),
-    gradient: 'linear-gradient(135deg, #06b6d4, #0891b2)',
-  },
-  {
-    name: 'JWT Encoder / Decoder',
-    description: 'Decode JWT tokens to inspect headers and payloads, or encode new tokens on the fly.',
-    path: '/jwt-tool',
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-        <path d="M7 11V7a5 5 0 0110 0v4" />
-      </svg>
-    ),
-    gradient: 'linear-gradient(135deg, #f59e0b, #d97706)',
-  },
-  {
-    name: 'Regex Tester',
-    description: 'Test regular expressions against sample text with real-time match highlighting.',
-    path: '/regex-tester',
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="11" cy="11" r="8" />
-        <line x1="21" y1="21" x2="16.65" y2="16.65" />
-      </svg>
-    ),
-    gradient: 'linear-gradient(135deg, #10b981, #059669)',
-  },
-  {
     name: 'JSON Formatter',
-    description: 'Paste raw JSON to format, validate, and beautify. Supports minify and tree view.',
+    description: 'Prettify and validate your JSON data with customizable settings for readability.',
     path: '/json-formatter',
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -68,90 +31,254 @@ const availableTools = [
         <line x1="16" y1="17" x2="8" y2="17" />
       </svg>
     ),
-    gradient: 'linear-gradient(135deg, #ec4899, #db2777)',
+    gradient: 'linear-gradient(135deg, #3b82f6, #06b6d4)',
   },
   {
-    name: 'API Tester',
-    description: 'Send HTTP requests to any endpoint and inspect responses, headers, and status codes.',
-    path: '/api-tester',
+    name: 'Regex Tester',
+    description: 'Test and debug regular expressions in real-time against sample text.',
+    path: '/regex-tester',
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+        <circle cx="11" cy="11" r="8" />
+        <line x1="21" y1="21" x2="16.65" y2="16.65" />
       </svg>
     ),
-    gradient: 'linear-gradient(135deg, #ef4444, #dc2626)',
+    gradient: 'linear-gradient(135deg, #f59e0b, #ef4444)',
+  },
+  {
+    name: 'HTTP Header Inspector',
+    description: 'Analyze HTTP headers for websites to understand server configuration and security.',
+    path: '/header-inspector',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2L2 7l10 5 10-5-10-5z" />
+        <path d="M2 17l10 5 10-5" />
+        <path d="M2 12l10 5 10-5" />
+      </svg>
+    ),
+    gradient: 'linear-gradient(135deg, #10b981, #06b6d4)',
+  },
+];
+
+const comingSoonTools = [
+  'JSON Formatter', 'Regex JSON Formatter', 'Regex Tester', 'HTTP Header Inspector'
+];
+
+const stats = [
+  {
+    label: 'TOOLS AVAILABLE',
+    value: '1',
+    iconColor: '#3b82f6',
+    iconBg: 'rgba(59, 130, 246, 0.15)',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
+      </svg>
+    ),
+  },
+  {
+    label: 'COMING SOON',
+    value: '4+',
+    iconColor: '#10b981',
+    iconBg: 'rgba(16, 185, 129, 0.15)',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+        <line x1="16" y1="2" x2="16" y2="6" />
+        <line x1="8" y1="2" x2="8" y2="6" />
+        <line x1="3" y1="10" x2="21" y2="10" />
+      </svg>
+    ),
+  },
+  {
+    label: 'API ENDPOINTS',
+    value: '1',
+    iconColor: '#06b6d4',
+    iconBg: 'rgba(6, 182, 212, 0.15)',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="16 18 22 12 16 6" />
+        <polyline points="8 6 2 12 8 18" />
+      </svg>
+    ),
+  },
+  {
+    label: 'STATUS',
+    value: 'Live',
+    isLive: true,
+    iconColor: '#10b981',
+    iconBg: 'rgba(16, 185, 129, 0.15)',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+        <circle cx="12" cy="12" r="3" />
+      </svg>
+    ),
   },
 ];
 
 export default function Dashboard() {
   return (
-    <div className="space-y-10">
+    <div className="flex flex-col min-h-full">
       {/* Hero header */}
-      <div className="pt-4">
-        <h1 className="text-3xl lg:text-4xl font-extrabold mb-4 leading-tight" style={{ color: 'var(--color-text)' }}>
-          Welcome to <span className="gradient-text">DevProse</span>
+      <div className="mb-8">
+        <h1
+          className="text-3xl lg:text-4xl font-extrabold mb-3 leading-tight"
+          style={{ color: '#ffffff' }}
+        >
+          Welcome back, <span className="gradient-text">DevProse</span>
         </h1>
-        <p className="text-base lg:text-lg max-w-xl leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
+        <p
+          className="text-base lg:text-lg max-w-xl leading-relaxed"
+          style={{ color: 'var(--color-text-secondary)' }}
+        >
           Your developer productivity suite. Pick a tool below to get started.
         </p>
       </div>
 
       {/* Tool cards grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {availableTools.map((tool) => {
-          const content = (
-            <Card
-              key={tool.name}
-              className={`group h-full ${tool.path ? 'hover:-translate-y-1 hover:shadow-lg cursor-pointer' : 'opacity-50 cursor-default'}`}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        {availableTools.map((tool, index) => (
+          <Link
+            key={tool.name}
+            to={tool.path}
+            className={`block no-underline animate-fade-in-up stagger-${index + 1}`}
+            style={{ opacity: 0 }}
+          >
+            <div
+              className="group h-full rounded-2xl p-6 flex flex-col justify-between min-h-[180px] transition-all duration-300 hover:-translate-y-1"
+              style={{
+                background: 'rgba(255, 255, 255, 0.03)',
+                backdropFilter: 'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)';
+                e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.3)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+              }}
             >
-              <div className="flex items-start gap-5 p-2">
+              <div className="space-y-3">
+                {/* Icon badge */}
                 <div
-                  className="w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 text-white transition-transform duration-200 group-hover:scale-110"
+                  className="w-12 h-12 rounded-xl flex items-center justify-center text-white transition-transform duration-300 group-hover:scale-110"
                   style={{ background: tool.gradient }}
                 >
                   {tool.icon}
                 </div>
-                <div className="pt-0.5">
-                  <h3 className="font-semibold text-base mb-2" style={{ color: 'var(--color-text)' }}>
-                    {tool.name}
-                  </h3>
-                  <p className="text-sm leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
-                    {tool.description}
-                  </p>
-                </div>
-              </div>
-            </Card>
-          );
 
-          return tool.path ? (
-            <Link key={tool.name} to={tool.path} className="block no-underline">
-              {content}
-            </Link>
-          ) : (
-            <div key={tool.name}>{content}</div>
-          );
-        })}
+                {/* Content */}
+                <h3
+                  className="font-semibold text-lg"
+                  style={{ color: '#ffffff' }}
+                >
+                  {tool.name}
+                </h3>
+                <p
+                  className="text-sm leading-relaxed"
+                  style={{ color: 'var(--color-text-secondary)' }}
+                >
+                  {tool.description}
+                </p>
+              </div>
+
+              {/* Launch button */}
+              <div
+                className="mt-4 w-full h-10 flex items-center justify-center rounded-lg text-[13px] font-semibold text-white transition-all duration-200"
+                style={{
+                  background: 'linear-gradient(135deg, #3b82f6, #2563eb)',
+                  boxShadow: '0 2px 8px rgba(59, 130, 246, 0.25)',
+                }}
+              >
+                Launch Tool
+              </div>
+            </div>
+          </Link>
+        ))}
+
+        {/* Add New Tool placeholder */}
+        <div
+          className="animate-fade-in-up stagger-5 rounded-2xl p-6 flex flex-col items-center justify-center text-center min-h-[180px]"
+          style={{
+            opacity: 0,
+            background: 'rgba(255, 255, 255, 0.02)',
+            border: '1px dashed rgba(255, 255, 255, 0.08)',
+          }}
+        >
+          <div
+            className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.06)',
+              border: '1px dashed rgba(255, 255, 255, 0.15)',
+            }}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: '#64748b' }}>
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+          </div>
+          <h3 className="font-semibold text-lg mb-2" style={{ color: '#94a3b8' }}>
+            Add New Tool
+          </h3>
+          <p className="text-sm leading-relaxed max-w-[220px]" style={{ color: '#64748b' }}>
+            More Coming Soon. {comingSoonTools.join(', ')}, and more tools are on the way.
+          </p>
+        </div>
       </div>
 
-      {/* Stats bar */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-        {[
-          { label: 'Tools Available', value: '6' },
-          { label: 'Categories', value: '4' },
-          { label: 'API Endpoints', value: '6' },
-          { label: 'Status', value: '● Live', valueColor: 'var(--color-success)' },
-        ].map((stat) => (
-          <Card key={stat.label} className="text-center py-6">
-            <p
-              className="text-2xl font-bold mb-2"
-              style={{ color: stat.valueColor || 'var(--color-primary)' }}
+      {/* Stats bar — pushed to bottom */}
+      <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
+        {stats.map((stat, index) => (
+          <div
+            key={stat.label}
+            className={`animate-fade-in-up stagger-${index + 1} rounded-xl p-4 flex items-center justify-between transition-all duration-200`}
+            style={{
+              opacity: 0,
+              background: 'rgba(255, 255, 255, 0.03)',
+              backdropFilter: 'blur(16px)',
+              WebkitBackdropFilter: 'blur(16px)',
+              border: '1px solid rgba(255, 255, 255, 0.06)',
+            }}
+          >
+            {/* Text */}
+            <div>
+              <div className="flex items-center gap-2">
+                {stat.isLive && (
+                  <span
+                    className="w-2 h-2 rounded-full inline-block"
+                    style={{ backgroundColor: '#4ade80', boxShadow: '0 0 6px rgba(74, 222, 128, 0.5)' }}
+                  />
+                )}
+                <span
+                  className="text-xl font-bold"
+                  style={{ color: '#ffffff' }}
+                >
+                  {stat.value}
+                </span>
+              </div>
+              <span
+                className="text-[10px] font-semibold uppercase tracking-wider"
+                style={{ color: '#64748b' }}
+              >
+                {stat.label}
+              </span>
+            </div>
+
+            {/* Colored icon */}
+            <div
+              className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+              style={{
+                backgroundColor: stat.iconBg,
+                color: stat.iconColor,
+              }}
             >
-              {stat.value}
-            </p>
-            <p className="text-xs font-medium uppercase tracking-wide" style={{ color: 'var(--color-text-secondary)' }}>
-              {stat.label}
-            </p>
-          </Card>
+              {stat.icon}
+            </div>
+          </div>
         ))}
       </div>
     </div>

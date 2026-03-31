@@ -83,8 +83,8 @@ export default function AiExplainer() {
   return (
     <div className="space-y-8">
       {/* Page header */}
-      <div className="pt-4">
-        <h1 className="text-2xl lg:text-3xl font-extrabold mb-3" style={{ color: 'var(--color-text)' }}>
+      <div className="pt-2">
+        <h1 className="text-2xl lg:text-3xl font-extrabold mb-3" style={{ color: '#ffffff' }}>
           AI Code Explainer
         </h1>
         <p className="text-sm lg:text-base max-w-lg leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
@@ -128,8 +128,8 @@ export default function AiExplainer() {
                 <div
                   className="flex rounded-xl overflow-hidden"
                   style={{
-                    border: '1px solid var(--color-border)',
-                    backgroundColor: 'var(--color-surface-alt)',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    backgroundColor: 'rgba(255, 255, 255, 0.04)',
                   }}
                 >
                   {MODES.map((m) => (
@@ -138,7 +138,7 @@ export default function AiExplainer() {
                       onClick={() => setMode(m.value)}
                       className="px-5 py-2.5 text-sm font-medium transition-all duration-200 cursor-pointer"
                       style={{
-                        backgroundColor: mode === m.value ? 'var(--color-primary)' : 'transparent',
+                        backgroundColor: mode === m.value ? '#3b82f6' : 'transparent',
                         color: mode === m.value ? '#fff' : 'var(--color-text-secondary)',
                       }}
                       title={m.description}
@@ -177,9 +177,9 @@ export default function AiExplainer() {
                   onClick={() => navigator.clipboard.writeText(result)}
                   className="text-xs px-3 py-1.5 rounded-lg transition-colors duration-200 cursor-pointer"
                   style={{
-                    backgroundColor: 'var(--color-surface-alt)',
+                    backgroundColor: 'rgba(255, 255, 255, 0.06)',
                     color: 'var(--color-text-secondary)',
-                    border: '1px solid var(--color-border)',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
                   }}
                   id="copy-output"
                 >
@@ -211,7 +211,7 @@ export default function AiExplainer() {
                       key={i}
                       className="w-2.5 h-2.5 rounded-full"
                       style={{
-                        backgroundColor: 'var(--color-primary)',
+                        backgroundColor: '#3b82f6',
                         animation: `pulse 1.4s ease-in-out ${i * 0.2}s infinite`,
                       }}
                     />
@@ -234,9 +234,9 @@ export default function AiExplainer() {
               <div
                 className="flex-1 p-5 rounded-xl overflow-auto text-sm leading-relaxed whitespace-pre-wrap font-mono animate-fade-in"
                 style={{
-                  backgroundColor: 'var(--color-code-bg)',
+                  backgroundColor: 'rgba(0, 0, 0, 0.3)',
                   color: 'var(--color-code-text)',
-                  border: '1px solid var(--color-border)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
                 }}
                 id="output-panel"
               >

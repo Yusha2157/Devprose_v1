@@ -34,11 +34,11 @@ app.get('/api/health', (_req, res) => {
 
 // ===== Start Server =====
 async function start() {
-  // Connect to MongoDB (non-blocking — server starts even if DB is down)
+  //MongoDB (non-blocking)
   try {
     await connectDB();
   } catch (err) {
-    console.warn('⚠ MongoDB not connected. Server will run without DB features.');
+    console.warn('⚠ MongoDB not connected. Server will run without DB.');
   }
 
   app.listen(PORT, () => {
