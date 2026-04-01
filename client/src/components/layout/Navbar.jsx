@@ -1,6 +1,7 @@
 /**
  * Navbar — stripped down to mobile-only hamburger.
  * No visible header bar on desktop — sidebar handles all navigation.
+ * Solid dark bg — no glassmorphism.
  */
 export default function Navbar({ onMenuToggle }) {
   return (
@@ -8,11 +9,9 @@ export default function Navbar({ onMenuToggle }) {
       {/* Mobile-only floating hamburger */}
       <button
         onClick={onMenuToggle}
-        className="lg:hidden fixed top-4 left-4 z-[60] p-2.5 rounded-xl transition-all duration-200 cursor-pointer"
+        className="lg:hidden fixed top-4 left-4 z-[60] p-2.5 rounded-xl transition-all duration-200 cursor-pointer flex items-center justify-center"
         style={{
-          backgroundColor: 'rgba(255, 255, 255, 0.08)',
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
+          backgroundColor: '#111827',
           border: '1px solid rgba(255, 255, 255, 0.1)',
           color: 'var(--color-text)',
         }}

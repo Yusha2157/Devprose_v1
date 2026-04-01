@@ -1,6 +1,6 @@
 /**
  * Button — reusable button with variants and loading state.
- * Primary variant updated to match reference blue buttons.
+ * Fixed: consistent height (h-11), flex centering for text alignment.
  */
 export default function Button({
   children,
@@ -11,8 +11,8 @@ export default function Button({
   ...props
 }) {
   const baseStyles = `
-    inline-flex items-center justify-center gap-2
-    px-5 py-2.5 rounded-xl text-sm font-semibold
+    w-full h-11 flex items-center justify-center gap-2
+    rounded-lg text-sm font-medium
     transition-all duration-200 cursor-pointer
     disabled:opacity-50 disabled:cursor-not-allowed
     active:scale-[0.97]
@@ -20,22 +20,19 @@ export default function Button({
 
   const variants = {
     primary: {
-      background: 'linear-gradient(135deg, #3b82f6, #2563eb)',
+      backgroundColor: '#2563eb',
       color: '#fff',
       border: 'none',
-      boxShadow: '0 4px 14px rgba(59, 130, 246, 0.3)',
     },
     secondary: {
       backgroundColor: 'rgba(255, 255, 255, 0.06)',
       color: 'var(--color-text)',
       border: '1px solid rgba(255, 255, 255, 0.1)',
-      boxShadow: 'none',
     },
     ghost: {
       backgroundColor: 'transparent',
       color: 'var(--color-text-secondary)',
       border: 'none',
-      boxShadow: 'none',
     },
   };
 
@@ -44,6 +41,12 @@ export default function Button({
       className={`${baseStyles} ${className}`}
       style={variants[variant]}
       disabled={disabled || loading}
+      onMouseEnter={(e) => {
+        if (variant === 'primary') e.currentTarget.style.backgroundColor = '#1d4ed8';
+      }}
+      onMouseLeave={(e) => {
+        if (variant === 'primary') e.currentTarget.style.backgroundColor = '#2563eb';
+      }}
       {...props}
     >
       {loading && (
