@@ -5,7 +5,8 @@ import Textarea from '../components/ui/Textarea';
 import { formatJSONApi } from '../services/api';
 
 /**
- * JSONFormatter page — paste JSON to format, validate, and minify.
+ * JSONFormatter page — paste JSON to format and validate.
+ * Calls POST /api/json → returns pretty-printed JSON.
  */
 export default function JSONFormatter() {
   const [json, setJson] = useState('');
@@ -26,7 +27,7 @@ export default function JSONFormatter() {
     try {
       const data = await formatJSONApi({ json });
       if (data.success) {
-        setResult(data.message);
+        setResult(data.data);
       } else {
         setError(data.error || 'Something went wrong.');
       }
@@ -41,9 +42,19 @@ export default function JSONFormatter() {
     }
   };
 
+  const handleCopy = () => {
+    if (result) navigator.clipboard.writeText(result);
+  };
+
+  const handleClear = () => {
+    setJson('');
+    setResult('');
+    setError('');
+  };
+
   return (
     <div className="space-y-8">
-      <div className="pt-2">
+      <div className="pt-2 mb-8">
         <h1 className="text-2xl lg:text-3xl font-extrabold mb-3" style={{ color: '#ffffff' }}>
           JSON Formatter
         </h1>
@@ -52,7 +63,8 @@ export default function JSONFormatter() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Left panel — Input */}
         <div className="flex flex-col gap-6">
           <Card>
             <Textarea
@@ -66,23 +78,54 @@ export default function JSONFormatter() {
           </Card>
 
           <Card>
-            <Button
-              id="format-button"
-              variant="primary"
-              onClick={handleRun}
-              loading={loading}
-              disabled={!json.trim()}
-            >
-              {loading ? 'Formatting...' : '✨ Format JSON'}
-            </Button>
+            <div className="flex gap-3">
+              <Button
+                id="format-button"
+                variant="primary"
+                onClick={handleRun}
+                loading={loading}
+                disabled={!json.trim()}
+              >
+                {loading ? 'Formatting...' : '✨ Format JSON'}
+              </Button>
+              <button
+                onClick={handleClear}
+                className="h-11 px-5 rounded-lg text-sm font-medium flex items-center justify-center transition-all duration-200 cursor-pointer"
+                style={{
+                  backgroundColor: 'rgba(255, 255, 255, 0.06)',
+                  color: 'var(--color-text-secondary)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                }}
+                id="clear-button"
+              >
+                Clear
+              </button>
+            </div>
           </Card>
         </div>
 
+        {/* Right panel — Output */}
         <div className="flex flex-col gap-6">
           <Card className="flex-1 min-h-[460px] flex flex-col">
-            <h2 className="text-sm font-semibold uppercase tracking-wider mb-5" style={{ color: 'var(--color-text-secondary)' }}>
-              Formatted Output
-            </h2>
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="text-sm font-semibold uppercase tracking-wider" style={{ color: 'var(--color-text-secondary)' }}>
+                Formatted Output
+              </h2>
+              {result && (
+                <button
+                  onClick={handleCopy}
+                  className="text-xs px-3 py-1.5 rounded-lg transition-colors duration-200 cursor-pointer flex items-center justify-center"
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.06)',
+                    color: 'var(--color-text-secondary)',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                  }}
+                  id="copy-output"
+                >
+                  📋 Copy
+                </button>
+              )}
+            </div>
 
             {error && (
               <div

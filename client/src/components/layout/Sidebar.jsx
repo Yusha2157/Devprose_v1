@@ -1,9 +1,9 @@
 import { NavLink } from 'react-router-dom';
 
 /**
- * Sidebar navigation — clean, modern dark sidebar matching the reference dashboard.
- * 
- * Desktop: static in flex flow (w-64), rounded-2xl, with padding from page edges.
+ * Sidebar navigation — polished, solid dark sidebar.
+ *
+ * Desktop: static in flex flow (w-64), rounded-2xl, bg-[#111827], border-white/10.
  * Mobile: slides in as fixed overlay with backdrop.
  */
 
@@ -84,6 +84,69 @@ const tools = [
   },
 ];
 
+/** Shared nav link renderer for desktop and mobile */
+function NavLinks({ onClick }) {
+  return (
+    <nav className="flex flex-col gap-1">
+      {tools.map((tool) => (
+        <NavLink
+          key={tool.path}
+          to={tool.path}
+          onClick={onClick}
+          end={tool.path === '/'}
+          className={({ isActive }) =>
+            `flex items-center gap-3 px-3 py-2 rounded-lg text-base font-medium
+             transition-all duration-200 group no-underline
+             ${isActive ? '' : 'hover:bg-white/10'}`
+          }
+          style={({ isActive }) => ({
+            backgroundColor: isActive ? '#2563eb' : 'transparent',
+            color: isActive ? '#ffffff' : '#d1d5db',
+          })}
+        >
+          <span className="transition-transform duration-200 group-hover:scale-110 shrink-0 flex items-center">
+            {tool.icon}
+          </span>
+          <span className="truncate">{tool.name}</span>
+        </NavLink>
+      ))}
+    </nav>
+  );
+}
+
+/** Shared logo */
+function Logo() {
+  return (
+    <div className="flex items-center gap-2.5 mb-8">
+      <div
+        className="w-9 h-9 rounded-lg flex items-center justify-center text-white font-bold text-sm shrink-0"
+        style={{
+          background: 'linear-gradient(135deg, #3b82f6, #06b6d4)',
+        }}
+      >
+        D
+      </div>
+      <span className="text-[15px] font-bold text-white tracking-tight">
+        DevProse
+      </span>
+    </div>
+  );
+}
+
+/** Shared bottom branding */
+function BottomBrand() {
+  return (
+    <div
+      className="pt-4"
+      style={{ borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}
+    >
+      <p className="text-[11px] font-medium" style={{ color: '#64748b' }}>
+        DevProse v1.0
+      </p>
+    </div>
+  );
+}
+
 export default function Sidebar({ isOpen, onClose }) {
   return (
     <>
@@ -91,71 +154,25 @@ export default function Sidebar({ isOpen, onClose }) {
       {isOpen && (
         <div
           className="fixed inset-0 z-40 lg:hidden"
-          style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)', backdropFilter: 'blur(4px)' }}
+          style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}
           onClick={onClose}
         />
       )}
 
       {/* ===== Desktop sidebar — static in flex flow ===== */}
       <aside
-        className="hidden lg:flex w-64 shrink-0 flex-col justify-between rounded-2xl p-5"
+        className="hidden lg:flex w-64 shrink-0 flex-col justify-between rounded-2xl p-5 m-4"
         style={{
-          backgroundColor: 'var(--color-sidebar)',
-          border: '1px solid rgba(255, 255, 255, 0.06)',
+          backgroundColor: '#111827',
+          border: '1px solid rgba(255, 255, 255, 0.10)',
           height: 'calc(100vh - 2rem)',
         }}
       >
-        {/* Logo area */}
         <div>
-          <div className="flex items-center gap-2.5 mb-8">
-            <div
-              className="w-9 h-9 rounded-lg flex items-center justify-center text-white font-bold text-sm shrink-0"
-              style={{
-                background: 'linear-gradient(135deg, #3b82f6, #06b6d4)',
-              }}
-            >
-              D
-            </div>
-            <span className="text-[15px] font-bold text-white tracking-tight">
-              DevProse
-            </span>
-          </div>
-
-          {/* Nav links */}
-          <nav className="flex flex-col gap-1">
-            {tools.map((tool) => (
-              <NavLink
-                key={tool.path}
-                to={tool.path}
-                end={tool.path === '/'}
-                className={({ isActive }) =>
-                  `flex items-center gap-3 px-3 py-2 rounded-lg text-[13px] font-medium
-                   transition-all duration-200 group no-underline
-                   ${isActive ? '' : 'hover:bg-white/10'}`
-                }
-                style={({ isActive }) => ({
-                  backgroundColor: isActive ? 'rgba(59, 130, 246, 0.2)' : 'transparent',
-                  color: isActive ? '#ffffff' : '#94a3b8',
-                })}
-              >
-                <span className="transition-transform duration-200 group-hover:scale-110 shrink-0 flex items-center">
-                  {tool.icon}
-                </span>
-                <span className="truncate">{tool.name}</span>
-              </NavLink>
-            ))}
-          </nav>
+          <Logo />
+          <NavLinks />
         </div>
-
-        {/* Bottom branding */}
-        <div
-          className="pt-4"
-          style={{ borderTop: '1px solid rgba(255, 255, 255, 0.06)' }}
-        >
-          <p className="text-[11px] font-medium" style={{ color: '#64748b' }}>
-            DevProse v1.0
-          </p>
-        </div>
+        <BottomBrand />
       </aside>
 
       {/* ===== Mobile sidebar — fixed overlay ===== */}
@@ -168,62 +185,15 @@ export default function Sidebar({ isOpen, onClose }) {
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
         `}
         style={{
-          backgroundColor: 'var(--color-sidebar)',
-          borderRight: '1px solid rgba(255, 255, 255, 0.06)',
+          backgroundColor: '#111827',
+          borderRight: '1px solid rgba(255, 255, 255, 0.10)',
         }}
       >
-        {/* Logo area */}
         <div>
-          <div className="flex items-center gap-2.5 mb-8">
-            <div
-              className="w-9 h-9 rounded-lg flex items-center justify-center text-white font-bold text-sm shrink-0"
-              style={{
-                background: 'linear-gradient(135deg, #3b82f6, #06b6d4)',
-              }}
-            >
-              D
-            </div>
-            <span className="text-[15px] font-bold text-white tracking-tight">
-              DevProse
-            </span>
-          </div>
-
-          {/* Nav links */}
-          <nav className="flex flex-col gap-1">
-            {tools.map((tool) => (
-              <NavLink
-                key={tool.path}
-                to={tool.path}
-                onClick={onClose}
-                end={tool.path === '/'}
-                className={({ isActive }) =>
-                  `flex items-center gap-3 px-3 py-2 rounded-lg text-[13px] font-medium
-                   transition-all duration-200 group no-underline
-                   ${isActive ? '' : 'hover:bg-white/10'}`
-                }
-                style={({ isActive }) => ({
-                  backgroundColor: isActive ? 'rgba(59, 130, 246, 0.2)' : 'transparent',
-                  color: isActive ? '#ffffff' : '#94a3b8',
-                })}
-              >
-                <span className="transition-transform duration-200 group-hover:scale-110 shrink-0 flex items-center">
-                  {tool.icon}
-                </span>
-                <span className="truncate">{tool.name}</span>
-              </NavLink>
-            ))}
-          </nav>
+          <Logo />
+          <NavLinks onClick={onClose} />
         </div>
-
-        {/* Bottom branding */}
-        <div
-          className="pt-4"
-          style={{ borderTop: '1px solid rgba(255, 255, 255, 0.06)' }}
-        >
-          <p className="text-[11px] font-medium" style={{ color: '#64748b' }}>
-            DevProse v1.0
-          </p>
-        </div>
+        <BottomBrand />
       </aside>
     </>
   );

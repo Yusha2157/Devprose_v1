@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom';
 
 /**
- * Dashboard page — landing page with glassmorphic tool cards matching the reference design.
- * Features: hero header, tool cards with gradient icons and "Launch Tool" buttons,
- * "Add New Tool" placeholder, and stats bar at the bottom.
+ * Dashboard page — solid dark tool cards, gradient icon badges,
+ * responsive grid with gap-8, and stats bar pushed to bottom.
  */
 
 const availableTools = [
@@ -61,13 +60,13 @@ const availableTools = [
 ];
 
 const comingSoonTools = [
-  'JSON Formatter', 'Regex JSON Formatter', 'Regex Tester', 'HTTP Header Inspector'
+  'JWT Decoder', 'Base64 Encoder', 'Color Picker', 'Markdown Preview'
 ];
 
 const stats = [
   {
     label: 'TOOLS AVAILABLE',
-    value: '1',
+    value: '6',
     iconColor: '#3b82f6',
     iconBg: 'rgba(59, 130, 246, 0.15)',
     icon: (
@@ -92,7 +91,7 @@ const stats = [
   },
   {
     label: 'API ENDPOINTS',
-    value: '1',
+    value: '6',
     iconColor: '#06b6d4',
     iconBg: 'rgba(6, 182, 212, 0.15)',
     icon: (
@@ -119,8 +118,8 @@ const stats = [
 
 export default function Dashboard() {
   return (
-    <div className="flex flex-col min-h-full">
-      {/* Hero header */}
+    <div className="flex flex-col min-h-screen">
+      {/* Hero header — mb-8 for spacing */}
       <div className="mb-8">
         <h1
           className="text-3xl lg:text-4xl font-extrabold mb-3 leading-tight"
@@ -136,8 +135,8 @@ export default function Dashboard() {
         </p>
       </div>
 
-      {/* Tool cards grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+      {/* Tool cards grid — gap-8 for breathing room */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
         {availableTools.map((tool, index) => (
           <Link
             key={tool.name}
@@ -146,24 +145,22 @@ export default function Dashboard() {
             style={{ opacity: 0 }}
           >
             <div
-              className="group h-full rounded-2xl p-6 flex flex-col justify-between min-h-[180px] transition-all duration-300 hover:-translate-y-1"
+              className="group h-full rounded-2xl p-7 flex flex-col justify-between min-h-[200px] transition-all duration-300 hover:-translate-y-1"
               style={{
-                background: 'rgba(255, 255, 255, 0.03)',
-                backdropFilter: 'blur(16px)',
-                WebkitBackdropFilter: 'blur(16px)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                background: '#111827',
+                border: '1px solid rgba(255, 255, 255, 0.10)',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)';
-                e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.3)';
+                e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.35)';
+                e.currentTarget.style.boxShadow = '0 0 20px rgba(59, 130, 246, 0.1)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)';
-                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.10)';
+                e.currentTarget.style.boxShadow = 'none';
               }}
             >
-              <div className="space-y-3">
-                {/* Icon badge */}
+              <div className="space-y-4">
+                {/* Icon badge — gradient container */}
                 <div
                   className="w-12 h-12 rounded-xl flex items-center justify-center text-white transition-transform duration-300 group-hover:scale-110"
                   style={{ background: tool.gradient }}
@@ -172,27 +169,18 @@ export default function Dashboard() {
                 </div>
 
                 {/* Content */}
-                <h3
-                  className="font-semibold text-lg"
-                  style={{ color: '#ffffff' }}
-                >
+                <h3 className="font-semibold text-lg text-white">
                   {tool.name}
                 </h3>
-                <p
-                  className="text-sm leading-relaxed"
-                  style={{ color: 'var(--color-text-secondary)' }}
-                >
+                <p className="text-sm text-gray-400 leading-relaxed">
                   {tool.description}
                 </p>
               </div>
 
-              {/* Launch button */}
+              {/* Launch button — mt-4, h-11, w-full, centered */}
               <div
-                className="mt-4 w-full h-10 flex items-center justify-center rounded-lg text-[13px] font-semibold text-white transition-all duration-200"
-                style={{
-                  background: 'linear-gradient(135deg, #3b82f6, #2563eb)',
-                  boxShadow: '0 2px 8px rgba(59, 130, 246, 0.25)',
-                }}
+                className="mt-4 w-full h-11 flex items-center justify-center rounded-lg text-sm font-medium text-white transition-all duration-200"
+                style={{ backgroundColor: '#2563eb' }}
               >
                 Launch Tool
               </div>
@@ -202,11 +190,11 @@ export default function Dashboard() {
 
         {/* Add New Tool placeholder */}
         <div
-          className="animate-fade-in-up stagger-5 rounded-2xl p-6 flex flex-col items-center justify-center text-center min-h-[180px]"
+          className="animate-fade-in-up stagger-5 rounded-2xl p-7 flex flex-col items-center justify-center text-center min-h-[200px]"
           style={{
             opacity: 0,
-            background: 'rgba(255, 255, 255, 0.02)',
-            border: '1px dashed rgba(255, 255, 255, 0.08)',
+            background: '#0f172a',
+            border: '1px dashed rgba(255, 255, 255, 0.10)',
           }}
         >
           <div
@@ -230,18 +218,16 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Stats bar — pushed to bottom */}
-      <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
+      {/* Stats bar — pushed to bottom with mt-auto */}
+      <div className="mt-auto pt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
         {stats.map((stat, index) => (
           <div
             key={stat.label}
             className={`animate-fade-in-up stagger-${index + 1} rounded-xl p-4 flex items-center justify-between transition-all duration-200`}
             style={{
               opacity: 0,
-              background: 'rgba(255, 255, 255, 0.03)',
-              backdropFilter: 'blur(16px)',
-              WebkitBackdropFilter: 'blur(16px)',
-              border: '1px solid rgba(255, 255, 255, 0.06)',
+              background: '#111827',
+              border: '1px solid rgba(255, 255, 255, 0.10)',
             }}
           >
             {/* Text */}
