@@ -57,6 +57,17 @@ const availableTools = [
     ),
     gradient: 'linear-gradient(135deg, #10b981, #06b6d4)',
   },
+  {
+  name: 'API Tester',
+  description: 'Send HTTP requests to any endpoint and inspect responses, headers, and status codes.',
+  path: '/api-tester',
+  icon: (
+    <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+    </svg>
+  ),
+  gradient: 'linear-gradient(135deg, #ef4444, #f97316)',
+},
 ];
 
 const comingSoonTools = [
