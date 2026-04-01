@@ -9,7 +9,7 @@ import { inspectHeaders } from '../services/api';
  */
 export default function HeaderInspector() {
   const [url, setUrl] = useState('');
-  const [result, setResult] = useState('');
+  const [headerData, setHeaderData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -20,13 +20,13 @@ export default function HeaderInspector() {
     }
 
     setError('');
-    setResult('');
+    setHeaderData(null);
     setLoading(true);
 
     try {
       const data = await inspectHeaders({ url });
       if (data.success) {
-        setResult(data.message);
+        setHeaderData(data.data);
       } else {
         setError(data.error || 'Something went wrong.');
       }
@@ -101,21 +101,46 @@ export default function HeaderInspector() {
               </div>
             )}
 
-            {result && !loading && (
+            {headerData && !loading && (
               <div
-                className="flex-1 p-5 rounded-xl overflow-auto text-sm leading-relaxed whitespace-pre-wrap font-mono animate-fade-in"
+                className="flex-1 p-5 rounded-xl overflow-auto text-sm animate-fade-in flex flex-col gap-4"
                 style={{
                   backgroundColor: 'rgba(0, 0, 0, 0.3)',
-                  color: 'var(--color-code-text)',
                   border: '1px solid rgba(255, 255, 255, 0.08)',
                 }}
                 id="output-panel"
               >
-                {result}
+                <div className="flex items-center justify-between pb-4 border-b" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
+                  <div className="flex items-center gap-3">
+                    <span 
+                      className="px-2 py-1 rounded text-xs font-bold tracking-wider"
+                      style={{ 
+                        backgroundColor: headerData.status >= 200 && headerData.status < 300 ? 'rgba(34, 197, 94, 0.2)' : 'rgba(239, 68, 68, 0.2)',
+                        color: headerData.status >= 200 && headerData.status < 300 ? '#4ade80' : '#f87171'
+                      }}
+                    >
+                      {headerData.status}
+                    </span>
+                    <span className="font-semibold text-white">{headerData.statusText || 'OK'}</span>
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-2 mt-2">
+                  {Object.entries(headerData.headers || {}).map(([key, value]) => (
+                    <div key={key} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4 p-2 rounded" style={{ backgroundColor: 'rgba(255,255,255,0.02)' }}>
+                      <span className="font-mono text-xs opacity-70 min-w-[140px]" style={{ color: '#60a5fa' }}>{key}</span>
+                      <span className="font-mono text-sm text-gray-200 break-all">{value}</span>
+                    </div>
+                  ))}
+                  
+                  {(!headerData.headers || Object.keys(headerData.headers).length === 0) && (
+                     <div className="text-xs opacity-50 italic" style={{ color: 'var(--color-text-secondary)' }}>No headers found.</div>
+                  )}
+                </div>
               </div>
             )}
 
-            {!result && !loading && !error && (
+            {!headerData && !loading && !error && (
               <div className="flex-1 flex flex-col items-center justify-center opacity-30">
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-16 h-16 mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M12 2L2 7l10 5 10-5-10-5z" />

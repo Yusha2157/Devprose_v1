@@ -10,7 +10,7 @@ import { testRegexApi } from '../services/api';
 export default function RegexTester() {
   const [pattern, setPattern] = useState('');
   const [testString, setTestString] = useState('');
-  const [result, setResult] = useState('');
+  const [matches, setMatches] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -21,13 +21,13 @@ export default function RegexTester() {
     }
 
     setError('');
-    setResult('');
+    setMatches(null);
     setLoading(true);
 
     try {
       const data = await testRegexApi({ pattern, testString, flags: 'g' });
       if (data.success) {
-        setResult(data.message);
+        setMatches(data.data.matches);
       } else {
         setError(data.error || 'Something went wrong.');
       }
@@ -40,6 +40,34 @@ export default function RegexTester() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const renderHighlightedString = () => {
+    if (!matches || matches.length === 0) return <span style={{ opacity: 0.8 }}>{testString || "No matches found."}</span>;
+    
+    let elements = [];
+    let lastIndex = 0;
+    
+    matches.forEach((m, idx) => {
+      if (m.index > lastIndex) {
+        elements.push(<span key={`unmatched-${idx}`}>{testString.substring(lastIndex, m.index)}</span>);
+      }
+      elements.push(
+        <mark 
+          key={`match-${idx}`} 
+          style={{ backgroundColor: 'rgba(59, 130, 246, 0.3)', color: '#60a5fa', borderRadius: '4px', padding: '0 2px' }}
+        >
+          {m.match}
+        </mark>
+      );
+      lastIndex = m.index + m.match.length;
+    });
+    
+    if (lastIndex < testString.length) {
+      elements.push(<span key={`unmatched-tail`}>{testString.substring(lastIndex)}</span>);
+    }
+    
+    return elements;
   };
 
   return (
@@ -109,9 +137,9 @@ export default function RegexTester() {
               </div>
             )}
 
-            {result && !loading && (
+            {matches && !loading && (
               <div
-                className="flex-1 p-5 rounded-xl overflow-auto text-sm leading-relaxed whitespace-pre-wrap font-mono animate-fade-in"
+                className="flex-1 p-5 rounded-xl overflow-auto text-sm leading-relaxed whitespace-pre-wrap font-mono animate-fade-in space-y-4"
                 style={{
                   backgroundColor: 'rgba(0, 0, 0, 0.3)',
                   color: 'var(--color-code-text)',
@@ -119,11 +147,34 @@ export default function RegexTester() {
                 }}
                 id="output-panel"
               >
-                {result}
+                <div className="leading-relaxed p-3 rounded" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}>
+                  {renderHighlightedString()}
+                </div>
+                {matches.length > 0 && (
+                  <div className="space-y-2 mt-4 pt-4 border-t" style={{ borderColor: 'rgba(255, 255, 255, 0.1)' }}>
+                    <h3 className="text-xs uppercase tracking-wider opacity-60">Match Details</h3>
+                    {matches.map((m, i) => (
+                      <div key={i} className="p-2 rounded flex flex-col gap-1 border" style={{ borderColor: 'rgba(255, 255, 255, 0.05)', backgroundColor: 'rgba(255, 255, 255, 0.02)' }}>
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs opacity-50">Match {i + 1}</span>
+                          <span style={{ color: '#60a5fa', fontWeight: 600 }}>{m.match}</span>
+                          <span className="text-xs opacity-50 ml-auto">Index: {m.index}</span>
+                        </div>
+                        {m.groups && m.groups.length > 0 && m.groups.some(g => g !== undefined) && (
+                          <div className="text-xs ml-4 flex flex-col gap-1" style={{ color: 'var(--color-text-secondary)' }}>
+                            {m.groups.map((g, gi) => g !== undefined && (
+                              <div key={gi}><span className="opacity-60">Group {gi + 1}:</span> {g}</div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
 
-            {!result && !loading && !error && (
+            {!matches && !loading && !error && (
               <div className="flex-1 flex flex-col items-center justify-center opacity-30">
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-16 h-16 mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="11" cy="11" r="8" />
