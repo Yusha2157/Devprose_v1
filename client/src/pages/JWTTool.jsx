@@ -42,8 +42,8 @@ export default function JWTTool() {
   };
 
   return (
-    <div className="space-y-8">
-      <div className="pt-2">
+    <div className="space-y-6">
+      <div>
         <h1 className="text-2xl lg:text-3xl font-extrabold mb-3" style={{ color: '#ffffff' }}>
           JWT Encoder / Decoder
         </h1>
@@ -69,6 +69,7 @@ export default function JWTTool() {
             <Button
               id="jwt-button"
               variant="primary"
+              className="w-full"
               onClick={handleRun}
               loading={loading}
               disabled={!token.trim()}

@@ -53,8 +53,8 @@ export default function JSONFormatter() {
   };
 
   return (
-    <div className="space-y-8">
-      <div className="pt-2 mb-8">
+    <div className="space-y-6">
+      <div>
         <h1 className="text-2xl lg:text-3xl font-extrabold mb-3" style={{ color: '#ffffff' }}>
           JSON Formatter
         </h1>
@@ -63,7 +63,7 @@ export default function JSONFormatter() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Left panel — Input */}
         <div className="flex flex-col gap-6">
           <Card>
@@ -82,24 +82,20 @@ export default function JSONFormatter() {
               <Button
                 id="format-button"
                 variant="primary"
+                className="flex-1"
                 onClick={handleRun}
                 loading={loading}
                 disabled={!json.trim()}
               >
                 {loading ? 'Formatting...' : '✨ Format JSON'}
               </Button>
-              <button
-                onClick={handleClear}
-                className="h-11 px-5 rounded-lg text-sm font-medium flex items-center justify-center transition-all duration-200 cursor-pointer"
-                style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.06)',
-                  color: 'var(--color-text-secondary)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                }}
+              <Button
                 id="clear-button"
+                variant="secondary"
+                onClick={handleClear}
               >
                 Clear
-              </button>
+              </Button>
             </div>
           </Card>
         </div>
@@ -112,18 +108,14 @@ export default function JSONFormatter() {
                 Formatted Output
               </h2>
               {result && (
-                <button
+                <Button
+                  size="sm"
+                  variant="secondary"
                   onClick={handleCopy}
-                  className="text-xs px-3 py-1.5 rounded-lg transition-colors duration-200 cursor-pointer flex items-center justify-center"
-                  style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.06)',
-                    color: 'var(--color-text-secondary)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                  }}
                   id="copy-output"
                 >
                   📋 Copy
-                </button>
+                </Button>
               )}
             </div>
 

@@ -8,6 +8,7 @@ import JWTTool from './pages/JWTTool';
 import RegexTester from './pages/RegexTester';
 import JSONFormatter from './pages/JSONFormatter';
 import APITester from './pages/APITester';
+import SnippetManager from './pages/SnippetManager';
 
 /**
  * App — root component.
@@ -26,6 +27,7 @@ export default function App() {
             <Route path="/regex-tester" element={<RegexTester />} />
             <Route path="/json-formatter" element={<JSONFormatter />} />
             <Route path="/api-tester" element={<APITester />} />
+            <Route path="/snippets" element={<SnippetManager />} />
           </Route>
         </Routes>
       </BrowserRouter>

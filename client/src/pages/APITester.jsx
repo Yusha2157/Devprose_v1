@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import Textarea from '../components/ui/Textarea';
+import Input from '../components/ui/Input';
 import Select from '../components/ui/Select';
 import { testAPIEndpoint } from '../services/api';
 
@@ -74,8 +75,8 @@ export default function APITester() {
   };
 
   return (
-    <div className="space-y-8">
-      <div className="pt-2">
+    <div className="space-y-6">
+      <div>
         <h1 className="text-2xl lg:text-3xl font-extrabold mb-3" style={{ color: '#ffffff' }}>
           API Tester
         </h1>
@@ -97,11 +98,10 @@ export default function APITester() {
                   onChange={(e) => setMethod(e.target.value)}
                 />
                 <div className="flex-1">
-                  <Textarea
+                  <Input
                     id="api-url-input"
                     label="URL"
                     placeholder="https://api.example.com/endpoint"
-                    rows={2}
                     value={url}
                     onChange={(e) => setUrl(e.target.value)}
                   />
@@ -123,6 +123,7 @@ export default function APITester() {
             <Button
               id="send-button"
               variant="primary"
+              className="w-full"
               onClick={handleRun}
               loading={loading}
               disabled={!url.trim()}

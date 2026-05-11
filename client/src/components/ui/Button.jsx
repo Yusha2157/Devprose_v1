@@ -1,21 +1,31 @@
 /**
- * Button — reusable button with variants and loading state.
- * Fixed: consistent height (h-11), flex centering for text alignment.
+ * Button — reusable button with variants, sizes, and loading state.
+ *
+ * Sizes: 'default' (h-11), 'sm' (h-9), 'icon' (h-9 w-9)
+ * Variants: 'primary', 'secondary', 'ghost', 'danger'
  */
 export default function Button({
   children,
   variant = 'primary',
+  size = 'default',
   loading = false,
   disabled = false,
   className = '',
   ...props
 }) {
+  const sizeStyles = {
+    default: 'h-11 px-4 text-sm',
+    sm: 'h-9 px-3 text-xs',
+    icon: 'h-9 w-9 text-sm',
+  };
+
   const baseStyles = `
-    w-full h-11 flex items-center justify-center gap-2
-    rounded-lg text-sm font-medium
+    inline-flex items-center justify-center gap-2
+    rounded-lg font-medium
     transition-all duration-200 cursor-pointer
     disabled:opacity-50 disabled:cursor-not-allowed
     active:scale-[0.97]
+    ${sizeStyles[size] || sizeStyles.default}
   `;
 
   const variants = {
@@ -34,6 +44,25 @@ export default function Button({
       color: 'var(--color-text-secondary)',
       border: 'none',
     },
+    danger: {
+      backgroundColor: 'rgba(239, 68, 68, 0.15)',
+      color: '#f87171',
+      border: '1px solid rgba(239, 68, 68, 0.25)',
+    },
+  };
+
+  const hoverBg = {
+    primary: '#1d4ed8',
+    secondary: 'rgba(255, 255, 255, 0.10)',
+    ghost: 'rgba(255, 255, 255, 0.06)',
+    danger: 'rgba(239, 68, 68, 0.25)',
+  };
+
+  const restoreBg = {
+    primary: '#2563eb',
+    secondary: 'rgba(255, 255, 255, 0.06)',
+    ghost: 'transparent',
+    danger: 'rgba(239, 68, 68, 0.15)',
   };
 
   return (
@@ -42,10 +71,10 @@ export default function Button({
       style={variants[variant]}
       disabled={disabled || loading}
       onMouseEnter={(e) => {
-        if (variant === 'primary') e.currentTarget.style.backgroundColor = '#1d4ed8';
+        e.currentTarget.style.backgroundColor = hoverBg[variant];
       }}
       onMouseLeave={(e) => {
-        if (variant === 'primary') e.currentTarget.style.backgroundColor = '#2563eb';
+        e.currentTarget.style.backgroundColor = restoreBg[variant];
       }}
       {...props}
     >

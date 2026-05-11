@@ -71,8 +71,8 @@ export default function RegexTester() {
   };
 
   return (
-    <div className="space-y-8">
-      <div className="pt-2">
+    <div className="space-y-6">
+      <div>
         <h1 className="text-2xl lg:text-3xl font-extrabold mb-3" style={{ color: '#ffffff' }}>
           Regex Tester
         </h1>
@@ -109,6 +109,7 @@ export default function RegexTester() {
             <Button
               id="regex-button"
               variant="primary"
+              className="w-full"
               onClick={handleRun}
               loading={loading}
               disabled={!pattern.trim()}
