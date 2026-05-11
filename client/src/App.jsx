@@ -8,6 +8,12 @@ import JWTTool from './pages/JWTTool';
 import RegexTester from './pages/RegexTester';
 import JSONFormatter from './pages/JSONFormatter';
 import APITester from './pages/APITester';
+import Vault from './pages/Vault';
+import UUIDHashGen from './pages/UUIDHashGen';
+import CronBuilder from './pages/CronBuilder';
+import Base64Tool from './pages/Base64Tool';
+import ColorPicker from './pages/ColorPicker';
+import MarkdownPreview from './pages/MarkdownPreview';
 
 /**
  * App — root component.
@@ -26,6 +32,12 @@ export default function App() {
             <Route path="/regex-tester" element={<RegexTester />} />
             <Route path="/json-formatter" element={<JSONFormatter />} />
             <Route path="/api-tester" element={<APITester />} />
+            <Route path="/vault" element={<Vault />} />
+            <Route path="/uuid-hash" element={<UUIDHashGen />} />
+            <Route path="/cron-builder" element={<CronBuilder />} />
+            <Route path="/base64" element={<Base64Tool />} />
+            <Route path="/color-picker" element={<ColorPicker />} />
+            <Route path="/markdown" element={<MarkdownPreview />} />
           </Route>
         </Routes>
       </BrowserRouter>

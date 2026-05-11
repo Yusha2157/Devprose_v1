@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import Select from '../components/ui/Select';
 import Textarea from '../components/ui/Textarea';
+import CopyButton from '../components/ui/CopyButton';
+import SaveToVaultButton from '../components/ui/SaveToVaultButton';
 import { explainCode } from '../services/api';
 
 /**
@@ -51,6 +53,18 @@ export default function AiExplainer() {
   const [result, setResult] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [apiKey, setApiKey] = useState('');
+
+  useEffect(() => {
+    const savedKey = localStorage.getItem('ai_api_key');
+    if (savedKey) setApiKey(savedKey);
+  }, []);
+
+  const handleApiKeyChange = (e) => {
+    const val = e.target.value;
+    setApiKey(val);
+    localStorage.setItem('ai_api_key', val);
+  };
 
   const handleRun = async () => {
     if (!code.trim()) {
@@ -63,7 +77,7 @@ export default function AiExplainer() {
     setLoading(true);
 
     try {
-      const data = await explainCode({ code, language, mode });
+      const data = await explainCode({ code, language, mode, apiKey });
       if (data.success) {
         setResult(data.result);
       } else {
@@ -105,6 +119,21 @@ export default function AiExplainer() {
               value={code}
               onChange={(e) => setCode(e.target.value)}
             />
+            <div className="mt-4">
+              <label className="block text-sm font-medium mb-2 text-[var(--color-text-secondary)]">
+                OpenAI API Key (Optional)
+              </label>
+              <input
+                type="password"
+                placeholder="sk-..."
+                value={apiKey}
+                onChange={handleApiKeyChange}
+                className="w-full px-4 py-2.5 rounded-xl border bg-black/20 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all border-white/10 text-white placeholder-white/30"
+              />
+              <p className="text-xs text-[var(--color-text-secondary)] mt-1 opacity-70">
+                Leave empty to use server configuration (if available) or mock response. Saved locally in your browser.
+              </p>
+            </div>
           </Card>
 
           <Card>
@@ -172,20 +201,19 @@ export default function AiExplainer() {
               <h2 className="text-sm font-semibold uppercase tracking-wider" style={{ color: 'var(--color-text-secondary)' }}>
                 Output
               </h2>
-              {result && (
-                <button
-                  onClick={() => navigator.clipboard.writeText(result)}
-                  className="text-xs px-3 py-1.5 rounded-lg transition-colors duration-200 cursor-pointer"
-                  style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.06)',
-                    color: 'var(--color-text-secondary)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                  }}
-                  id="copy-output"
-                >
-                  📋 Copy
-                </button>
-              )}
+              <div className="flex gap-2">
+                {result && (
+                  <>
+                    <SaveToVaultButton 
+                      title={`AI: ${mode} ${language}`} 
+                      content={result} 
+                      language="markdown" 
+                      tags={['ai', mode, language]} 
+                    />
+                    <CopyButton text={result} />
+                  </>
+                )}
+              </div>
             </div>
 
             {/* Error state */}

@@ -8,6 +8,9 @@ import jwtRoutes from './routes/jwt.routes.js';
 import regexRoutes from './routes/regex.routes.js';
 import jsonRoutes from './routes/json.routes.js';
 import apiTesterRoutes from './routes/api-tester.routes.js';
+import vaultRoutes from './routes/vault.routes.js';
+import hashRoutes from './routes/hash.routes.js';
+import cronRoutes from './routes/cron.routes.js';
 
 // Load environment variables
 dotenv.config();
@@ -27,6 +30,9 @@ app.use('/api/jwt', jwtRoutes);
 app.use('/api/regex', regexRoutes);
 app.use('/api/json', jsonRoutes);
 app.use('/api/api-tester', apiTesterRoutes);
+app.use('/api/vault', vaultRoutes);
+app.use('/api/hash', hashRoutes);
+app.use('/api/cron', cronRoutes);
 
 // Health check
 app.get('/api/health', (_req, res) => {

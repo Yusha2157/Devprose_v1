@@ -10,17 +10,17 @@ import OpenAI from 'openai';
  * @param {string} params.mode — 'explain' | 'debug' | 'optimize'
  * @returns {Promise<string>} — AI analysis text
  */
-export async function getAiResponse({ code, language, mode }) {
-  const apiKey = process.env.OPENAI_API_KEY;
+export async function getAiResponse({ code, language, mode, apiKey }) {
+  const activeApiKey = apiKey || process.env.OPENAI_API_KEY;
 
   // Use mock if no API key is configured
-  if (!apiKey) {
+  if (!activeApiKey) {
     console.log('ℹ No OpenAI key set — returning mock response');
     return getMockResponse({ code, language, mode });
   }
 
   // ===== Real OpenAI call =====
-  const openai = new OpenAI({ apiKey });
+  const openai = new OpenAI({ apiKey: activeApiKey });
 
   const systemPrompts = {
     explain: `You are an expert code tutor. Explain the following ${language} code clearly and concisely. Break it down step by step. Use simple language that a junior developer can understand.`,
