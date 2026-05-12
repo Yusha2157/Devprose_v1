@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import Textarea from '../components/ui/Textarea';
 import Input from '../components/ui/Input';
 import Select from '../components/ui/Select';
+import CopyButton from '../components/ui/CopyButton';
+import SaveToVaultButton from '../components/ui/SaveToVaultButton';
 import { testAPIEndpoint } from '../services/api';
 
 /**
@@ -26,11 +28,24 @@ export default function APITester() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  useEffect(() => {
+    const savedUrl = localStorage.getItem('api_url');
+    const savedMethod = localStorage.getItem('api_method');
+    const savedBody = localStorage.getItem('api_body');
+    if (savedUrl) setUrl(savedUrl);
+    if (savedMethod) setMethod(savedMethod);
+    if (savedBody) setBody(savedBody);
+  }, []);
+
   const handleRun = async () => {
     if (!url.trim()) {
       setError('Please enter a URL.');
       return;
     }
+
+    localStorage.setItem('api_url', url);
+    localStorage.setItem('api_method', method);
+    localStorage.setItem('api_body', body);
 
     setError('');
     setResult('');
@@ -135,9 +150,24 @@ export default function APITester() {
 
         <div className="flex flex-col gap-6">
           <Card className="flex-1 min-h-[460px] flex flex-col">
-            <h2 className="text-sm font-semibold uppercase tracking-wider mb-5" style={{ color: 'var(--color-text-secondary)' }}>
-              Response
-            </h2>
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="text-sm font-semibold uppercase tracking-wider" style={{ color: 'var(--color-text-secondary)' }}>
+                Response
+              </h2>
+              <div className="flex gap-2">
+                {result && (
+                  <>
+                    <SaveToVaultButton 
+                      title={`API Response: ${method} ${url}`} 
+                      content={result} 
+                      language="json" 
+                      tags={['api', 'response']} 
+                    />
+                    <CopyButton text={result} />
+                  </>
+                )}
+              </div>
+            </div>
 
             {error && (
               <div

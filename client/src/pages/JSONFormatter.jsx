@@ -2,6 +2,8 @@ import { useState } from 'react';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import Textarea from '../components/ui/Textarea';
+import CopyButton from '../components/ui/CopyButton';
+import SaveToVaultButton from '../components/ui/SaveToVaultButton';
 import { formatJSONApi } from '../services/api';
 
 /**
@@ -107,16 +109,10 @@ export default function JSONFormatter() {
               <h2 className="text-sm font-semibold uppercase tracking-wider" style={{ color: 'var(--color-text-secondary)' }}>
                 Formatted Output
               </h2>
-              {result && (
-                <Button
-                  size="sm"
-                  variant="secondary"
-                  onClick={handleCopy}
-                  id="copy-output"
-                >
-                  📋 Copy
-                </Button>
-              )}
+              <div className="flex gap-2">
+                <SaveToVaultButton title="Formatted JSON" content={result} language="json" tags={['json', 'formatter']} />
+                <CopyButton text={result} />
+              </div>
             </div>
 
             {error && (

@@ -26,7 +26,7 @@ export async function inspectHeaders(req, res) {
     try {
       response = await axios.head(url, config);
       if (response.status === 405 || response.status === 501) {
-          response = await axios.get(url, config);
+        response = await axios.get(url, config);
       }
     } catch (headErr) {
       // Intentionally fallback to GET if HEAD throws an error (e.g. timeout or network intercept)

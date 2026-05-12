@@ -6,7 +6,7 @@ import { getAiResponse } from '../services/ai.service.js';
  */
 export async function handleExplain(req, res) {
   try {
-    const { code, language, mode } = req.body;
+    const { code, language, mode, apiKey } = req.body;
 
     // ===== Input validation =====
     if (!code || typeof code !== 'string' || !code.trim()) {
@@ -32,7 +32,7 @@ export async function handleExplain(req, res) {
     }
 
     // ===== Call AI service =====
-    const result = await getAiResponse({ code, language, mode });
+    const result = await getAiResponse({ code, language, mode, apiKey });
 
     return res.json({
       success: true,

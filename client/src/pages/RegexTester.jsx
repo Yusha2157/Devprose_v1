@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import Textarea from '../components/ui/Textarea';
+import SaveToVaultButton from '../components/ui/SaveToVaultButton';
 import { testRegexApi } from '../services/api';
 
 /**
@@ -14,11 +15,21 @@ export default function RegexTester() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  useEffect(() => {
+    const savedPattern = localStorage.getItem('regex_pattern');
+    const savedTestString = localStorage.getItem('regex_testString');
+    if (savedPattern) setPattern(savedPattern);
+    if (savedTestString) setTestString(savedTestString);
+  }, []);
+
   const handleRun = async () => {
     if (!pattern.trim()) {
       setError('Please enter a regex pattern.');
       return;
     }
+
+    localStorage.setItem('regex_pattern', pattern);
+    localStorage.setItem('regex_testString', testString);
 
     setError('');
     setMatches(null);
@@ -121,9 +132,19 @@ export default function RegexTester() {
 
         <div className="flex flex-col gap-6">
           <Card className="flex-1 min-h-[300px] flex flex-col">
-            <h2 className="text-sm font-semibold uppercase tracking-wider mb-5" style={{ color: 'var(--color-text-secondary)' }}>
-              Matches
-            </h2>
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="text-sm font-semibold uppercase tracking-wider" style={{ color: 'var(--color-text-secondary)' }}>
+                Matches
+              </h2>
+              {matches && (
+                <SaveToVaultButton 
+                  title={`Regex: ${pattern}`} 
+                  content={pattern} 
+                  language="regex" 
+                  tags={['regex']} 
+                />
+              )}
+            </div>
 
             {error && (
               <div

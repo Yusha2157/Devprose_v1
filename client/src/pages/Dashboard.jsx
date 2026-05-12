@@ -58,6 +58,84 @@ const availableTools = [
     gradient: 'linear-gradient(135deg, #10b981, #06b6d4)',
   },
   {
+    name: 'Dev Snippets Vault',
+    description: 'Your personal repository for saved code snippets, API responses, regex patterns, and more.',
+    path: '/vault',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+        <polyline points="17 21 17 13 7 13 7 21"></polyline>
+        <polyline points="7 3 7 8 15 8"></polyline>
+      </svg>
+    ),
+    gradient: 'linear-gradient(135deg, #a855f7, #ec4899)',
+  },
+  {
+    name: 'UUID & Hash Generator',
+    description: 'Generate secure UUIDs and cryptographic hashes (MD5, SHA-1, SHA-256, SHA-512).',
+    path: '/uuid-hash',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+      </svg>
+    ),
+    gradient: 'linear-gradient(135deg, #64748b, #475569)',
+  },
+  {
+    name: 'Cron Builder',
+    description: 'Easily understand and construct cron expressions for your scheduled tasks.',
+    path: '/cron-builder',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <polyline points="12 6 12 12 16 14"></polyline>
+      </svg>
+    ),
+    gradient: 'linear-gradient(135deg, #14b8a6, #0d9488)',
+  },
+  {
+    name: 'Base64 Tool',
+    description: 'Encode and decode Base64 strings quickly and securely.',
+    path: '/base64',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v4"></path>
+        <polyline points="14 2 14 8 20 8"></polyline>
+        <path d="M2 15h10"></path>
+        <path d="m9 18 3-3-3-3"></path>
+      </svg>
+    ),
+    gradient: 'linear-gradient(135deg, #8b5cf6, #6d28d9)',
+  },
+  {
+    name: 'Color Picker',
+    description: 'Convert between HEX and RGB color formats with a visual color picker.',
+    path: '/color-picker',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="m2 22 1-1h3l9-9"></path>
+        <path d="M3 21v-3l9-9"></path>
+        <path d="m15 6 3.4-3.4a2.1 2.1 0 1 1 3 3L18 9l.4.4a2.1 2.1 0 1 1-3 3l-3.8-3.8a2.1 2.1 0 1 1 3-3l.4.4Z"></path>
+      </svg>
+    ),
+    gradient: 'linear-gradient(135deg, #fbbf24, #d97706)',
+  },
+  {
+    name: 'Markdown Preview',
+    description: 'Live preview of your markdown syntax with full Github Flavored Markdown support.',
+    path: '/markdown',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+        <polyline points="14 2 14 8 20 8"></polyline>
+        <line x1="16" y1="13" x2="8" y2="13"></line>
+        <line x1="16" y1="17" x2="8" y2="17"></line>
+        <line x1="10" y1="9" x2="8" y2="9"></line>
+      </svg>
+    ),
+    gradient: 'linear-gradient(135deg, #1e293b, #0f172a)',
+  },
     name: 'API Tester',
     description: 'Send HTTP requests to any endpoint and inspect responses, headers, and status codes.',
     path: '/api-tester',
@@ -96,7 +174,7 @@ const availableTools = [
 ];
 
 const comingSoonTools = [
-  'JWT Decoder', 'Base64 Encoder', 'Color Picker', 'Markdown Preview'
+  'JWT Decoder', 'More Tools'
 ];
 
 const stats = [
@@ -113,7 +191,7 @@ const stats = [
   },
   {
     label: 'COMING SOON',
-    value: '4+',
+    value: '2+',
     iconColor: '#10b981',
     iconBg: 'rgba(16, 185, 129, 0.15)',
     icon: (
@@ -127,7 +205,7 @@ const stats = [
   },
   {
     label: 'API ENDPOINTS',
-    value: '6',
+    value: '9',
     iconColor: '#06b6d4',
     iconBg: 'rgba(6, 182, 212, 0.15)',
     icon: (
