@@ -1,12 +1,11 @@
 import { Router } from 'express';
-import { handleJWT } from '../controllers/jwt.controller.js';
+import { handleJWTRequest } from '../controllers/jwt.controller.js';
 
 const router = Router();
 
 /**
  * POST /api/jwt
- * Body: { token: string, action: 'encode' | 'decode' }
  */
-router.post('/', handleJWT);
+router.post('/', handleJWTRequest);
 
 export default router;

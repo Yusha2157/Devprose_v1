@@ -41,8 +41,13 @@ export async function inspectHeaders({ url }) {
  * @param {string} params.token — JWT token or payload
  * @param {string} params.action — 'encode' | 'decode'
  */
-export async function handleJWTApi({ token, action }) {
-  const response = await api.post('/jwt', { token, action });
+export async function handleJWTApi({ token, payload, action }) {
+  const response = await api.post('/jwt', {
+    token,
+    payload,
+    action,
+  });
+
   return response.data;
 }
 
