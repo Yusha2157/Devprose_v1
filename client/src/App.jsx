@@ -14,6 +14,7 @@ import CronBuilder from './pages/CronBuilder';
 import Base64Tool from './pages/Base64Tool';
 import ColorPicker from './pages/ColorPicker';
 import MarkdownPreview from './pages/MarkdownPreview';
+import SnippetManager from './pages/SnippetManager';
 
 /**
  * App — root component.
@@ -38,6 +39,7 @@ export default function App() {
             <Route path="/base64" element={<Base64Tool />} />
             <Route path="/color-picker" element={<ColorPicker />} />
             <Route path="/markdown" element={<MarkdownPreview />} />
+            <Route path="/snippets" element={<SnippetManager />} />
           </Route>
         </Routes>
       </BrowserRouter>

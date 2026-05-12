@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 /**
  * Dashboard page — solid dark tool cards, gradient icon badges,
- * responsive grid with gap-8, and stats bar pushed to bottom.
+ * responsive grid with gap-6, and stats bar pushed to bottom.
  */
 
 const availableTools = [
@@ -136,6 +136,41 @@ const availableTools = [
     ),
     gradient: 'linear-gradient(135deg, #1e293b, #0f172a)',
   },
+    name: 'API Tester',
+    description: 'Send HTTP requests to any endpoint and inspect responses, headers, and status codes.',
+    path: '/api-tester',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+      </svg>
+    ),
+    gradient: 'linear-gradient(135deg, #ef4444, #f97316)',
+  },
+  {
+    name: 'Snippet Manager',
+    description: 'Save, organize, and quickly access your reusable code snippets with search and filtering.',
+    path: '/snippets',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2" />
+        <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+        <path d="M9 14l2 2 4-4" />
+      </svg>
+    ),
+    gradient: 'linear-gradient(135deg, #8b5cf6, #ec4899)',
+  },
+  {
+  name: 'JWT Encoder / Decoder',
+  description: 'Encode and decode JWT tokens, inspect payloads, and verify token validity.',
+  path: '/jwt-tool',
+  icon: (
+    <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+      <path d="M7 11V7a5 5 0 0110 0v4"></path>
+    </svg>
+  ),
+  gradient: 'linear-gradient(135deg, #8b5cf6, #ec4899)',
+},
 ];
 
 const comingSoonTools = [
@@ -145,7 +180,7 @@ const comingSoonTools = [
 const stats = [
   {
     label: 'TOOLS AVAILABLE',
-    value: '11',
+    value: '7',
     iconColor: '#3b82f6',
     iconBg: 'rgba(59, 130, 246, 0.15)',
     icon: (
@@ -198,8 +233,8 @@ const stats = [
 export default function Dashboard() {
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Hero header — mb-8 for spacing */}
-      <div className="mb-8">
+      {/* Hero header */}
+      <div className="mb-6">
         <h1
           className="text-3xl lg:text-4xl font-extrabold mb-3 leading-tight"
           style={{ color: '#ffffff' }}
@@ -214,8 +249,8 @@ export default function Dashboard() {
         </p>
       </div>
 
-      {/* Tool cards grid — gap-8 for breathing room */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+      {/* Tool cards grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {availableTools.map((tool, index) => (
           <Link
             key={tool.name}
@@ -224,42 +259,51 @@ export default function Dashboard() {
             style={{ opacity: 0 }}
           >
             <div
-              className="group h-full rounded-2xl p-7 flex flex-col justify-between min-h-[200px] transition-all duration-300 hover:-translate-y-1"
+              className="group h-full rounded-2xl p-7 flex flex-col justify-between min-h-[220px] transition-all duration-300 hover:-translate-y-1"
               style={{
-                background: '#111827',
+                background: 'rgba(255, 255, 255, 0.04)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
                 border: '1px solid rgba(255, 255, 255, 0.10)',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.35)';
-                e.currentTarget.style.boxShadow = '0 0 20px rgba(59, 130, 246, 0.1)';
+                e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.4)';
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.07)';
+                e.currentTarget.style.boxShadow = '0 8px 32px rgba(59, 130, 246, 0.12)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.10)';
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.04)';
                 e.currentTarget.style.boxShadow = 'none';
               }}
             >
               <div className="space-y-4">
-                {/* Icon badge — gradient container */}
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center text-white transition-transform duration-300 group-hover:scale-110"
-                  style={{ background: tool.gradient }}
-                >
-                  {tool.icon}
+                {/* Icon badge + title row */}
+                <div className="flex items-center gap-3">
+                  <div
+                    className="w-12 h-12 rounded-xl flex items-center justify-center text-white shrink-0 transition-transform duration-300 group-hover:scale-110"
+                    style={{ background: tool.gradient }}
+                  >
+                    {tool.icon}
+                  </div>
+                  <h3 className="font-semibold text-lg text-white leading-snug">
+                    {tool.name}
+                  </h3>
                 </div>
 
-                {/* Content */}
-                <h3 className="font-semibold text-lg text-white">
-                  {tool.name}
-                </h3>
+                {/* Description */}
                 <p className="text-sm text-gray-400 leading-relaxed">
                   {tool.description}
                 </p>
               </div>
 
-              {/* Launch button — mt-4, h-11, w-full, centered */}
+              {/* Launch button */}
               <div
-                className="mt-4 w-full h-11 flex items-center justify-center rounded-lg text-sm font-medium text-white transition-all duration-200"
-                style={{ backgroundColor: '#2563eb' }}
+                className="mt-4 w-full h-11 flex items-center justify-center rounded-lg text-sm font-medium text-white transition-all duration-200 px-4"
+                style={{
+                  backgroundColor: '#2563eb',
+                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                }}
               >
                 Launch Tool
               </div>
@@ -267,13 +311,13 @@ export default function Dashboard() {
           </Link>
         ))}
 
-        {/* Add New Tool placeholder */}
+        {/* More tools coming soon placeholder */}
         <div
-          className="animate-fade-in-up stagger-5 rounded-2xl p-7 flex flex-col items-center justify-center text-center min-h-[200px]"
+          className="animate-fade-in-up stagger-7 rounded-2xl p-7 flex flex-col items-center justify-center text-center min-h-[220px]"
           style={{
             opacity: 0,
-            background: '#0f172a',
-            border: '1px dashed rgba(255, 255, 255, 0.10)',
+            background: 'rgba(255, 255, 255, 0.02)',
+            border: '1px dashed rgba(255, 255, 255, 0.12)',
           }}
         >
           <div
@@ -289,16 +333,16 @@ export default function Dashboard() {
             </svg>
           </div>
           <h3 className="font-semibold text-lg mb-2" style={{ color: '#94a3b8' }}>
-            Add New Tool
+            More tools coming soon
           </h3>
-          <p className="text-sm leading-relaxed max-w-[220px]" style={{ color: '#64748b' }}>
-            More Coming Soon. {comingSoonTools.join(', ')}, and more tools are on the way.
+          <p className="text-sm leading-relaxed max-w-[200px]" style={{ color: '#64748b' }}>
+            {comingSoonTools.join(', ')}, and more on the way.
           </p>
         </div>
       </div>
 
       {/* Stats bar — pushed to bottom with mt-auto */}
-      <div className="mt-auto pt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="mt-auto pt-8 pb-6 grid grid-cols-2 md:grid-cols-4 gap-4">
         {stats.map((stat, index) => (
           <div
             key={stat.label}

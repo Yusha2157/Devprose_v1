@@ -146,6 +146,13 @@ const tools = [
         <line x1="16" y1="13" x2="8" y2="13"></line>
         <line x1="16" y1="17" x2="8" y2="17"></line>
         <line x1="10" y1="9" x2="8" y2="9"></line>
+    name: 'Snippet Manager',
+    path: '/snippets',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2" />
+        <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+        <path d="M9 14l2 2 4-4" />
       </svg>
     ),
   },
@@ -154,7 +161,7 @@ const tools = [
 /** Shared nav link renderer for desktop and mobile */
 function NavLinks({ onClick }) {
   return (
-    <nav className="flex flex-col gap-1">
+    <nav className="flex flex-col gap-2">
       {tools.map((tool) => (
         <NavLink
           key={tool.path}
@@ -162,7 +169,7 @@ function NavLinks({ onClick }) {
           onClick={onClick}
           end={tool.path === '/'}
           className={({ isActive }) =>
-            `flex items-center gap-3 px-3 py-2 rounded-lg text-base font-medium
+            `flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium
              transition-all duration-200 group no-underline
              ${isActive ? '' : 'hover:bg-white/10'}`
           }
@@ -184,16 +191,16 @@ function NavLinks({ onClick }) {
 /** Shared logo */
 function Logo() {
   return (
-    <div className="flex items-center gap-2.5 mb-8">
+    <div className="flex items-center gap-3 mb-8">
       <div
-        className="w-9 h-9 rounded-lg flex items-center justify-center text-white font-bold text-sm shrink-0"
+        className="w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold text-base shrink-0"
         style={{
           background: 'linear-gradient(135deg, #3b82f6, #06b6d4)',
         }}
       >
         D
       </div>
-      <span className="text-[15px] font-bold text-white tracking-tight">
+      <span className="text-xl font-semibold text-white tracking-tight">
         DevProse
       </span>
     </div>
@@ -228,7 +235,7 @@ export default function Sidebar({ isOpen, onClose }) {
 
       {/* ===== Desktop sidebar — static in flex flow ===== */}
       <aside
-        className="hidden lg:flex w-64 shrink-0 flex-col justify-between rounded-2xl p-5 m-4"
+        className="hidden lg:flex w-64 shrink-0 flex-col justify-between rounded-2xl p-6 m-4"
         style={{
           backgroundColor: '#111827',
           border: '1px solid rgba(255, 255, 255, 0.10)',
@@ -246,7 +253,7 @@ export default function Sidebar({ isOpen, onClose }) {
       <aside
         className={`
           fixed top-0 left-0 z-50 h-screen w-64
-          flex flex-col justify-between p-5
+          flex flex-col justify-between p-6
           transition-transform duration-300 ease-in-out
           lg:hidden
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}

@@ -95,9 +95,9 @@ export default function AiExplainer() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* Page header */}
-      <div className="pt-2">
+      <div>
         <h1 className="text-2xl lg:text-3xl font-extrabold mb-3" style={{ color: '#ffffff' }}>
           AI Code Explainer
         </h1>
@@ -155,7 +155,7 @@ export default function AiExplainer() {
                   Mode
                 </span>
                 <div
-                  className="flex rounded-xl overflow-hidden"
+                  className="flex rounded-lg overflow-hidden"
                   style={{
                     border: '1px solid rgba(255, 255, 255, 0.1)',
                     backgroundColor: 'rgba(255, 255, 255, 0.04)',

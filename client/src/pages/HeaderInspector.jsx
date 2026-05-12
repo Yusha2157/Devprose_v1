@@ -42,9 +42,9 @@ export default function HeaderInspector() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* Page header */}
-      <div className="pt-2">
+      <div>
         <h1 className="text-2xl lg:text-3xl font-extrabold mb-3" style={{ color: '#ffffff' }}>
           HTTP Header Inspector
         </h1>
@@ -72,6 +72,7 @@ export default function HeaderInspector() {
             <Button
               id="inspect-button"
               variant="primary"
+              className="w-full"
               onClick={handleRun}
               loading={loading}
               disabled={!url.trim()}
