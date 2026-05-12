@@ -136,6 +136,7 @@ const availableTools = [
     ),
     gradient: 'linear-gradient(135deg, #1e293b, #0f172a)',
   },
+  {
     name: 'API Tester',
     description: 'Send HTTP requests to any endpoint and inspect responses, headers, and status codes.',
     path: '/api-tester',
